@@ -1,23 +1,27 @@
-# Individual React Project — Digital Product Hub
+# React Digital Product
 
-## Реализованные критерии
+Live demo (GitHub Pages): https://elpsy77.github.io/React-Project/
 
-- **Навигация (5+ страниц):** Home, Users, UserDetails (dynamic), Books, Todo, About, NotFound.
-- **Запросы к серверу (3+):**
-  - `GET https://dummyjson.com/users?limit=20`
-  - `GET https://dummyjson.com/users/:id`
-  - `GET https://api.itbook.store/1.0/new`
-  - `GET https://dummyjson.com/todos?limit=10`
-- **Динамические страницы:** `/users/:id` с `useParams`.
-- **Интерактивность (3+):**
-  - Переключение темы (Context)
-  - Поиск пользователей
-  - Кнопки сортировки/ограничения книг
-  - Добавление todo и переключение выполненности/фильтр
-- **State management:** React Context (`ThemeContext`).
-- **Доп. библиотека:** `classnames`.
+Полноценный индивидуальный проект на React с динамической маршрутизацией, API-запросами и интерактивным интерфейсом.
 
-## Запуск
+## Что реализовано
+
+- Навигация: 6 страниц + `NotFound`
+- API-запросы (DummyJSON):
+  - `GET /products?limit=20`
+  - `GET /products/:id`
+  - `GET /users?limit=12`
+  - `GET /quotes/random`
+- Динамическая страница: `/products/:productId` через `useParams`
+- Интерактивные элементы:
+  - Переключение темы (light/dark)
+  - Поиск и сортировка товаров
+  - Добавление в корзину
+  - Изменение количества товаров в корзине
+- Управление состоянием: `React Context`
+- Доп. библиотека: `classnames`
+
+## Установка и запуск
 
 ```bash
 npm install
@@ -26,5 +30,6 @@ npm run dev
 
 ## Рекомендации по сдаче
 
-- Загрузите репозиторий на GitHub.
-- Добавьте деплой на Vercel для бонуса.
+1. Залить проект в GitHub.
+2. Добавить ссылку на репозиторий в `.txt` файл (если требуется по условиям).
+3. Задеплоить на Vercel и убедиться, что все страницы и роуты работают корректно.

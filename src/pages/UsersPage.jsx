@@ -1,55 +1,64 @@
-import { useEffect, useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useMemo, useState } from 'react';
+import { getUsers } from '../services/api';
 
-export default function UsersPage() {
-  const [users, setUsers] = useState([])
-  const [search, setSearch] = useState('')
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
+function UsersPage() {
+  const [users, setUsers] = useState([]);
+  const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function loadUsers() {
+    const loadUsers = async () => {
       try {
-        const response = await fetch('https://dummyjson.com/users?limit=20')
-        const data = await response.json()
-        setUsers(data.users ?? [])
-      } catch (err) {
-        setError('Failed to load users')
+        const response = await getUsers(12);
+        setUsers(response.data.users);
+      } catch (error) {
+        console.error('Users request failed:', error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    loadUsers()
-  }, [])
+    loadUsers();
+  }, []);
 
-  const filteredUsers = useMemo(() => {
-    return users.filter((user) =>
-      `${user.firstName} ${user.lastName}`.toLowerCase().includes(search.toLowerCase())
-    )
-  }, [users, search])
-
-  if (loading) return <p>Loading users...</p>
-  if (error) return <p>{error}</p>
+  const visibleUsers = useMemo(() => {
+    const normalizedSearch = search.trim().toLowerCase();
+    return users.filter((user) => {
+      const fullName = `${user.firstName} ${user.lastName}`.toLowerCase();
+      return fullName.includes(normalizedSearch) || user.email.toLowerCase().includes(normalizedSearch);
+    });
+  }, [users, search]);
 
   return (
     <section>
-      <h2>Users</h2>
+      <h1>Users</h1>
       <input
-        type="text"
+        className="input"
+        placeholder="Search user by name or email"
         value={search}
-        placeholder="Search by name"
         onChange={(event) => setSearch(event.target.value)}
       />
-      <ul>
-        {filteredUsers.map((user) => (
-          <li key={user.id}>
-            <Link to={`/users/${user.id}`}>
-              {user.firstName} {user.lastName}
-            </Link>
-          </li>
-        ))}
-      </ul>
+
+      {loading && <p className="muted">Loading users...</p>}
+
+      {!loading && (
+        <div className="users-list">
+          {visibleUsers.map((user) => (
+            <article key={user.id} className="user-item">
+              <img src={user.image} alt={`${user.firstName} ${user.lastName}`} />
+              <div>
+                <h3>
+                  {user.firstName} {user.lastName}
+                </h3>
+                <p className="muted">{user.email}</p>
+                <p>{user.company?.title || 'No position listed'}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
     </section>
-  )
+  );
 }
+
+export default UsersPage;

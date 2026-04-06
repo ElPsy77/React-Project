@@ -1,7 +1,5 @@
 # React Digital Product
 
-Live demo (GitHub Pages): https://elpsy77.github.io/React-Project/
-
 Полноценный индивидуальный проект на React с динамической маршрутизацией, API-запросами и интерактивным интерфейсом.
 
 ## Что реализовано
@@ -27,9 +25,3 @@ Live demo (GitHub Pages): https://elpsy77.github.io/React-Project/
 npm install
 npm run dev
 ```
-
-## Рекомендации по сдаче
-
-1. Залить проект в GitHub.
-2. Добавить ссылку на репозиторий в `.txt` файл (если требуется по условиям).
-3. Задеплоить на Vercel и убедиться, что все страницы и роуты работают корректно.
